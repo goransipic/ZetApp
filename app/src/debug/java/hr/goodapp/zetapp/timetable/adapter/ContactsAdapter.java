@@ -93,7 +93,8 @@ public class ContactsAdapter extends
         nameTrain.setText(train.getName());
 
         TextView timeTrain = viewHolder.timeTrain;
-        //timeTrain.setText(Double.toString(train.getTime()));
+        timeTrain.setText(
+                Integer.toString((int) train.getTime()) + " min");
     }
 
     // Return the total count of items
