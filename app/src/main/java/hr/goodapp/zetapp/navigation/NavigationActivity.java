@@ -1,10 +1,6 @@
 package hr.goodapp.zetapp.navigation;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,10 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import hr.goodapp.zetapp.R;
-import hr.goodapp.zetapp.timetable.TimeTableFragment;
 
 public class NavigationActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TimeTableFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,10 +93,5 @@ public class NavigationActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }

@@ -2,8 +2,6 @@ package hr.goodapp.zetapp.timetable.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,19 +11,19 @@ import android.widget.TextView;
 import java.util.List;
 
 import hr.goodapp.zetapp.R;
+import hr.goodapp.zetapp.timetable.model.Train;
 
 /**
  * Created by User on 6.1.2016..
  */
-public class ContactsAdapter extends
-        RecyclerView.Adapter<ContactsAdapter.ViewHolder> {
+public class TrainAdapter extends
+        RecyclerView.Adapter<TrainAdapter.ViewHolder> {
 
     // Store a member variable for the contacts
     private List<Train> mTrains;
 
-    // Pass in the contact array into the constructor
-    public ContactsAdapter(List<Train> trains) {
-        mTrains = trains;
+    public void setTrains(List<Train> trains) {
+        this.mTrains = trains;
     }
 
     // Usually involves inflating a layout from XML and returning the holder
@@ -53,7 +51,7 @@ public class ContactsAdapter extends
     }
 
     @Override
-    public ContactsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TrainAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -100,6 +98,11 @@ public class ContactsAdapter extends
     // Return the total count of items
     @Override
     public int getItemCount() {
-        return mTrains.size();
+
+        if (mTrains == null) {
+            return 0;
+        }else {
+            return mTrains.size();
+        }
     }
 }

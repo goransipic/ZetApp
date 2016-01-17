@@ -1,4 +1,4 @@
-package hr.goodapp.zetapp.timetable.adapter;
+package hr.goodapp.zetapp.timetable.model;
 
 import java.util.ArrayList;
 import java.util.List;
