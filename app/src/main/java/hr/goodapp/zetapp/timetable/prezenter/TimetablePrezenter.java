@@ -21,7 +21,7 @@ public class TimetablePrezenter extends MvpBasePresenter<TimeTableView> {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

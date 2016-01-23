@@ -6,6 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -33,10 +36,11 @@ public class TrainAdapter extends
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
-        public TextView numberTrain;
-        public TextView nameTrain;
-        public TextView timeTrain;
-
+        public TextView zetTypeOfVehicle;
+        public TextView nameStation;
+        public TextView numbersOfTrains;
+        private LinearLayout linearLayout;
+        private ImageView imageView;
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
         public ViewHolder(View itemView) {
@@ -44,9 +48,12 @@ public class TrainAdapter extends
             // to access the context from any ViewHolder instance.
             super(itemView);
 
-            numberTrain = (TextView) itemView.findViewById(R.id.number_train);
-            nameTrain = (TextView) itemView.findViewById(R.id.name_train);
-            timeTrain = (TextView) itemView.findViewById(R.id.time_train);
+            zetTypeOfVehicle = (TextView) itemView.findViewById(R.id.zet_type_of_vehicle);
+            nameStation = (TextView) itemView.findViewById(R.id.name_station);
+            numbersOfTrains = (TextView) itemView.findViewById(R.id.number_of_trains);
+            linearLayout = (LinearLayout) itemView.findViewById(R.id.zet_venhicle_type_ic);
+            imageView = (ImageView) itemView.findViewById(R.id.zet_type_of_vehicle_image);
+
         }
     }
 
@@ -79,20 +86,26 @@ public class TrainAdapter extends
                 R.color.color4,
         };
 
+        // set image baseg on type of zet
+        if (train.getmZetTypeOfVehicle().equals("BUS")) {
+            viewHolder.imageView.setBackgroundResource(R.drawable.ic_directions_bus_white_24dp);
+        } else {
+            viewHolder.imageView.setBackgroundResource(R.drawable.ic_directions_railway_white_24dp);
+        }
+
         // Set item views based on the data model
-        TextView textView = viewHolder.numberTrain;
-        GradientDrawable shapeDrawable = (GradientDrawable) textView.getBackground();
+        TextView zetTypeOfVehicle = viewHolder.zetTypeOfVehicle;
+        GradientDrawable shapeDrawable = (GradientDrawable) viewHolder.linearLayout.getBackground();
 
         shapeDrawable.setColor(viewHolder.itemView.getContext().getResources().getColor(color[position % 7]));
 
-        textView.setText(train.getNumber());
+        zetTypeOfVehicle.setText(train.getmZetTypeOfVehicle());
         //
-        TextView nameTrain = viewHolder.nameTrain;
-        nameTrain.setText(train.getName());
+        TextView nameStation = viewHolder.nameStation;
+        nameStation.setText(train.getmNameStation());
 
-        TextView timeTrain = viewHolder.timeTrain;
-        timeTrain.setText(
-                Integer.toString((int) train.getTime()) + " min");
+        TextView numbersOfTrains = viewHolder.numbersOfTrains;
+        numbersOfTrains.setText(train.getmNumbersOfTrains());
     }
 
     // Return the total count of items

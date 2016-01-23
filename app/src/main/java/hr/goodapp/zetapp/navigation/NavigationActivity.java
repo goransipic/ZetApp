@@ -2,9 +2,13 @@ package hr.goodapp.zetapp.navigation;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,14 +22,30 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import hr.goodapp.zetapp.R;
+import hr.goodapp.zetapp.timetable.adapter.MyPagerAdapter;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
+    private MyPagerAdapter adapterViewPager;
+    private CoordinatorLayout mCoordinatorLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
+
+        Snackbar snackbar = Snackbar.make(mCoordinatorLayout,"Welcome to Zet App", Snackbar.LENGTH_LONG);
+
+        snackbar.show();
+
+        ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
+        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
+        vpPager.setAdapter(adapterViewPager);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(vpPager);
         init();
     }
 
@@ -47,11 +67,7 @@ public class NavigationActivity extends AppCompatActivity
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setIconifiedByDefault(false);
 
-
-
         searchView.requestFocus();
-
-
 
         return true;
     }

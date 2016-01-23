@@ -15,6 +15,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import hr.goodapp.zetapp.R;
+import hr.goodapp.zetapp.timetable.Injection;
+import hr.goodapp.zetapp.timetable.adapter.DividerItemDecoration;
 import hr.goodapp.zetapp.timetable.adapter.TrainAdapter;
 import hr.goodapp.zetapp.timetable.model.Train;
 import hr.goodapp.zetapp.timetable.prezenter.TimetablePrezenter;
@@ -27,7 +29,7 @@ public class TimeTableFragment
     implements TimeTableView, SwipeRefreshLayout.OnRefreshListener{
 
     @Bind(R.id.recyclerView) RecyclerView recyclerView;
-    TrainAdapter mTrainAdapter = new TrainAdapter();
+    TrainAdapter mTrainAdapter = Injection.provideTimeTableAdapter();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +45,7 @@ public class TimeTableFragment
 
         // Setup recycler view
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL_LIST));
         recyclerView.setAdapter(mTrainAdapter);
         loadData(false);
     }

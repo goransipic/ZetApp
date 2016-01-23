@@ -9,7 +9,7 @@ import hr.goodapp.zetapp.timetable.adapter.TrainAdapter;
  */
 public class Injection {
 
-    public static RecyclerView.Adapter<? extends RecyclerView.ViewHolder> provideTimeTableAdapter() {
+    public static TrainAdapter provideTimeTableAdapter() {
         return new TrainAdapter();
     }
 
