@@ -1,4 +1,4 @@
-package hr.goodapp.zetapp.timetable.adapter;
+package hr.goodapp.zetapp.comon.adapter;
 
 import android.content.Context;
 import android.content.res.TypedArray;

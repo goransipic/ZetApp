@@ -1,4 +1,4 @@
-package hr.goodapp.zetapp.timetable.view;
+package hr.goodapp.zetapp.zetlines.view;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,26 +15,30 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import hr.goodapp.zetapp.R;
-import hr.goodapp.zetapp.timetable.Injection;
 import hr.goodapp.zetapp.comon.adapter.DividerItemDecoration;
-import hr.goodapp.zetapp.timetable.adapter.TrainAdapter;
-import hr.goodapp.zetapp.timetable.model.Train;
-import hr.goodapp.zetapp.timetable.prezenter.TimetablePrezenter;
+
+
+import hr.goodapp.zetapp.zetlines.Injection;
+import hr.goodapp.zetapp.zetlines.adapter.ZetlinesAdapter;
+import hr.goodapp.zetapp.zetlines.model.ZetLines;
+import hr.goodapp.zetapp.zetlines.prezenter.ZetLinesPrezenter;
 
 /**
- * Created by User on 17.1.2016..
+ * Created by User on 24.1.2016..
  */
-public class TimeTableFragment
-    extends MvpLceFragment<SwipeRefreshLayout,List<Train>,TimeTableView,TimetablePrezenter>
-    implements TimeTableView, SwipeRefreshLayout.OnRefreshListener{
+public class ZetLinesFragment
+        extends MvpLceFragment<SwipeRefreshLayout,List<ZetLines>,ZetLinesView,ZetLinesPrezenter>
+        implements ZetLinesView, SwipeRefreshLayout.OnRefreshListener {
 
-    @Bind(R.id.recyclerView) RecyclerView recyclerView;
-    TrainAdapter mTrainAdapter = Injection.provideTimeTableAdapter();
+    @Bind(R.id.recyclerView_zetlines)
+    RecyclerView recyclerView;
+
+    ZetlinesAdapter mZetlinesAdapter = Injection.provideZetLinesAdapter();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.timetable_list, container, false);
+        return inflater.inflate(R.layout.zetlines_list, container, false);
     }
 
     @Override public void onViewCreated(View view, Bundle savedInstance) {
@@ -46,8 +50,34 @@ public class TimeTableFragment
         // Setup recycler view
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL_LIST));
-        recyclerView.setAdapter(mTrainAdapter);
+        recyclerView.setAdapter(mZetlinesAdapter);
         loadData(false);
+    }
+
+    @Override
+    protected String getErrorMessage(Throwable e, boolean pullToRefresh) {
+        return null;
+    }
+
+    @Override
+    public ZetLinesPrezenter createPresenter() {
+        return new ZetLinesPrezenter();
+    }
+
+    @Override
+    public void setData(List<ZetLines> data) {
+        mZetlinesAdapter.setZetLines(data);
+        mZetlinesAdapter.notifyDataSetChanged();
+    }
+
+    @Override public void showContent() {
+        super.showContent();
+        contentView.setRefreshing(false);
+    }
+
+    @Override public void showLoading(boolean pullToRefresh) {
+        super.showLoading(pullToRefresh);
+        contentView.setRefreshing(pullToRefresh);
     }
 
     @Override
@@ -60,36 +90,4 @@ public class TimeTableFragment
     public void onRefresh() {
         loadData(true);
     }
-
-    @Override
-    public TimetablePrezenter createPresenter() {
-        return new TimetablePrezenter();
-    }
-
-    @Override
-    public void setData(List<Train> data) {
-        mTrainAdapter.setTrains(data);
-        mTrainAdapter.notifyDataSetChanged();
-    }
-
-    @Override public void showContent() {
-        super.showContent();
-        contentView.setRefreshing(false);
-    }
-
-    @Override public void showError(Throwable e, boolean pullToRefresh) {
-        super.showError(e, pullToRefresh);
-        contentView.setRefreshing(false);
-    }
-
-    @Override public void showLoading(boolean pullToRefresh) {
-        super.showLoading(pullToRefresh);
-        contentView.setRefreshing(pullToRefresh);
-    }
-
-    @Override
-    protected String getErrorMessage(Throwable e, boolean pullToRefresh) {
-        return null;
-    }
-
 }
