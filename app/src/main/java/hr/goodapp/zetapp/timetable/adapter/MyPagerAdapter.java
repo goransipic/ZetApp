@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import hr.goodapp.zetapp.timetable.view.TimeTableFragment;
+import hr.goodapp.zetapp.timetable.TimeTableFragment;
 import hr.goodapp.zetapp.zetlines.view.ZetLinesFragment;
 
 /**

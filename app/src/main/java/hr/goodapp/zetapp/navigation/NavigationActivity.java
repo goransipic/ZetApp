@@ -1,6 +1,9 @@
 package hr.goodapp.zetapp.navigation;
 
+import android.app.SearchManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
@@ -21,6 +24,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import hr.goodapp.zetapp.Main2Activity;
 import hr.goodapp.zetapp.R;
 import hr.goodapp.zetapp.timetable.adapter.MyPagerAdapter;
 
@@ -50,6 +54,11 @@ public class NavigationActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        Bundle extras = intent.getExtras();
+    }
+
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -64,10 +73,16 @@ public class NavigationActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setIconifiedByDefault(false);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
-        searchView.requestFocus();
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        /*searchView.setIconifiedByDefault(false);
+
+        searchView.requestFocus();*/
 
         return true;
     }

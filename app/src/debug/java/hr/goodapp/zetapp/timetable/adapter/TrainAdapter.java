@@ -33,7 +33,7 @@ public class TrainAdapter extends
 
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
         public TextView zetTypeOfVehicle;
@@ -53,6 +53,12 @@ public class TrainAdapter extends
             numbersOfTrains = (TextView) itemView.findViewById(R.id.number_of_trains);
             linearLayout = (LinearLayout) itemView.findViewById(R.id.zet_venhicle_type_ic);
             imageView = (ImageView) itemView.findViewById(R.id.zet_type_of_vehicle_image);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
 
         }
     }
