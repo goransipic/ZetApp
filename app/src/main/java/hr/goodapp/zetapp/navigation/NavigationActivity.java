@@ -24,6 +24,8 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import org.jsoup.Jsoup;
+
 import hr.goodapp.zetapp.Main2Activity;
 import hr.goodapp.zetapp.R;
 import hr.goodapp.zetapp.timetable.adapter.MyPagerAdapter;

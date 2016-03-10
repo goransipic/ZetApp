@@ -20,5 +20,9 @@
     <style name="AppTheme.Launcher" parent="AppTheme.NoActionBar">
         <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
+    
+    <style name="proba" parent="Widget.AppCompat.Button.Colored">
+
+    </style>
 
 </resources>

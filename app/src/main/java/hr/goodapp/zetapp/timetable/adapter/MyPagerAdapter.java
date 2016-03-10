@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import hr.goodapp.zetapp.timetable.TimeTableFragment;
-import hr.goodapp.zetapp.zetlines.view.ZetLinesFragment;
+import hr.goodapp.zetapp.zetlines.ZetLinesFragment;
 
 /**
  * Created by User on 20.1.2016..
@@ -13,7 +13,7 @@ import hr.goodapp.zetapp.zetlines.view.ZetLinesFragment;
 public class MyPagerAdapter extends FragmentPagerAdapter {
 
     private static int NUM_ITEMS = 2;
-    String[] stringArray = {"Polazni", "Dolazni"};
+    String[] stringArray = {"Dnevne Linije", "Noćne Linije"};
     public MyPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
     }

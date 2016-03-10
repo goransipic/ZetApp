@@ -1,4 +1,4 @@
-package hr.goodapp.zetapp.zetlines.view;
+package hr.goodapp.zetapp.zetlines;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ import hr.goodapp.zetapp.zetlines.model.ZetLines;
 /**
  * Created by User on 24.1.2016..
  */
-public class ZetLinesFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<ZetLines>> {
+public class ZetLinesFragment extends Fragment implements LoaderManager.LoaderCallbacks<String> {
 
     @Bind(R.id.recyclerView_zetlines)
     RecyclerView recyclerView;
@@ -58,19 +59,19 @@ public class ZetLinesFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     @Override
-    public Loader<List<ZetLines>> onCreateLoader(int id, Bundle args) {
+    public Loader<String> onCreateLoader(int id, Bundle args) {
 
         return new ZetLinesLoader(getContext());
     }
 
     @Override
-    public void onLoadFinished(Loader<List<ZetLines>> loader, List<ZetLines> data) {
-        mZetlinesAdapter.setZetLines(data);
-
+    public void onLoadFinished(Loader<String> loader, String data) {
+        //mZetlinesAdapter.setZetLines(data);
+        Toast.makeText(getContext(),data,Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void onLoaderReset(Loader<List<ZetLines>> loader) {
+    public void onLoaderReset(Loader<String> loader) {
 
     }
 }
