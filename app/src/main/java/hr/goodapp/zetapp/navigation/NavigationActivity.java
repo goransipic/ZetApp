@@ -1,17 +1,14 @@
 package hr.goodapp.zetapp.navigation;
 
 import android.app.SearchManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,21 +16,15 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
-import org.jsoup.Jsoup;
-
-import hr.goodapp.zetapp.Main2Activity;
 import hr.goodapp.zetapp.R;
-import hr.goodapp.zetapp.timetable.adapter.MyPagerAdapter;
+import hr.goodapp.zetapp.timetable_new.TimeTableFragment;
+import hr.goodapp.zetapp.zetlines.ZetLinesFragment;
 
 public class NavigationActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener,TimeTableFragment.OnFragmentInteractionListener{
 
-    private MyPagerAdapter adapterViewPager;
+
     private CoordinatorLayout mCoordinatorLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +38,14 @@ public class NavigationActivity extends AppCompatActivity
 
         snackbar.show();
 
-        ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
-        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
-        vpPager.setAdapter(adapterViewPager);
+        if (savedInstanceState == null){
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.setupWithViewPager(vpPager);
+            getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.content_main,new ZetLinesFragment())
+                                        .commit();
+
+        }
+
         init();
     }
 
@@ -117,6 +110,11 @@ public class NavigationActivity extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
+        } else if (id == R.id.nav_timetable) {
+           getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.content_main, TimeTableFragment.newInstance(null,null),null)
+                                    .addToBackStack(null)
+                                    .commit();
         }
 
 
@@ -146,5 +144,11 @@ public class NavigationActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

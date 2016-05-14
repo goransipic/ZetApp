@@ -3,12 +3,17 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_timetable"
+            android:icon="@android:drawable/ic_dialog_map"
+            android:title="Vozni red" />
+        <item
             android:id="@+id/nav_camera"
+            android:checked="false"
             android:icon="@drawable/ic_directions_bus_white_24dp"
-            android:title="Autobus" />
+            android:title="Autobusne linije" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_directions_railway_black_24dp"
-            android:title="Tramvaj" />
+            android:title="Tramvajske linije" />
     </group>
 </menu>

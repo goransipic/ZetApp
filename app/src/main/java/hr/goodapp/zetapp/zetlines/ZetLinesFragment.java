@@ -1,77 +1,51 @@
 package hr.goodapp.zetapp.zetlines;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import hr.goodapp.zetapp.R;
-import hr.goodapp.zetapp.comon.adapter.DividerItemDecoration;
-import hr.goodapp.zetapp.zetlines.Injection;
-import hr.goodapp.zetapp.zetlines.adapter.ZetlinesAdapter;
-import hr.goodapp.zetapp.zetlines.loader.ZetLinesLoader;
-import hr.goodapp.zetapp.zetlines.model.ZetLines;
+import hr.goodapp.zetapp.timetable.adapter.MyPagerAdapter;
 
 /**
  * Created by User on 24.1.2016..
  */
-public class ZetLinesFragment extends Fragment implements LoaderManager.LoaderCallbacks<String> {
+public class ZetLinesFragment extends Fragment {
 
-    @Bind(R.id.recyclerView_zetlines)
-    RecyclerView recyclerView;
 
-    ZetlinesAdapter mZetlinesAdapter = Injection.provideZetLinesAdapter();
+
+    private MyPagerAdapter adapterViewPager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.zetlines_list, container, false);
 
     }
 
-    @Override public void onViewCreated(View view, Bundle savedInstance) {
+    @Override
+    public void onViewCreated(View view, Bundle savedInstance) {
         super.onViewCreated(view, savedInstance);
-        ButterKnife.bind(this, view);
 
 
-        // Setup recycler view
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-        recyclerView.setAdapter(mZetlinesAdapter);
+        ViewPager vpPager = (ViewPager) view.findViewById(R.id.viewpager);
+        adapterViewPager = new MyPagerAdapter(this.getChildFragmentManager());
+        vpPager.setAdapter(adapterViewPager);
+
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(vpPager);
+
+
+
 
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
 
-        getLoaderManager().initLoader(0,null,this);
-    }
 
-    @Override
-    public Loader<String> onCreateLoader(int id, Bundle args) {
 
-        return new ZetLinesLoader(getContext());
-    }
-
-    @Override
-    public void onLoadFinished(Loader<String> loader, String data) {
-        //mZetlinesAdapter.setZetLines(data);
-        Toast.makeText(getContext(),data,Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onLoaderReset(Loader<String> loader) {
-
-    }
 }

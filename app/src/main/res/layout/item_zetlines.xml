@@ -2,53 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="?android:listPreferredItemHeight"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingBottom="10dp"
     android:paddingLeft="?android:listPreferredItemPaddingLeft"
-    android:paddingRight="?android:listPreferredItemPaddingRight"
-    android:paddingTop="10dp">
-
-    <FrameLayout
-
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_gravity="center">
-
-        <LinearLayout
-            android:id="@+id/zet_venhicle_type_ic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/timetable_picture"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/zet_number_of_vehicle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|center_horizontal"
-                android:textAppearance="?android:textAppearanceLargeInverse"
-                tools:text="1" />
-
-        </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/zet_lines_zet_type_of_vehicle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="15dp"
-            android:background="@drawable/zetlines_zet_type"
-            android:textAppearance="?android:textAppearanceSmallInverse"
-            android:textColor="#fff"
-            tools:text="BUS" />
-
-
-    </FrameLayout>
+    android:paddingRight="?android:listPreferredItemPaddingRight">
 
     <TextView
         android:id="@+id/name_station"

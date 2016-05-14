@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="bus_times">
+        <item>04:30:00 Dubec</item>
+        <item> 04:50:00 MLINAR Dubec</item>
+        <item>05:00:00 Borongaj Dubec</item>
+        <item>05:20:00 Borongaj Dubec</item>
+        <item>05:40:00 Borongaj	Dubec</item>
+        <item>06:00:00 Borongaj	Dubec</item>
+        <item> 06:20:00 Borongaj Dubec</item>
+        <item>06:40:00 Borongaj Dubec</item>
+    </string-array>
+</resources>

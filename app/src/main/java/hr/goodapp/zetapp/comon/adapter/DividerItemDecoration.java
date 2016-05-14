@@ -72,7 +72,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
                     .getLayoutParams();
             final int top = child.getBottom() + params.bottomMargin;
             final int bottom = top + mDivider.getIntrinsicHeight();
-            mDivider.setBounds(left+260, top, right-50, bottom);
+            mDivider.setBounds(left, top, right, bottom);
             mDivider.draw(c);
         }
     }

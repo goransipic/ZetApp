@@ -4,8 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import hr.goodapp.zetapp.timetable.TimeTableFragment;
-import hr.goodapp.zetapp.zetlines.ZetLinesFragment;
+import hr.goodapp.zetapp.zetlines.nestedfragments.DayLinesFragment;
 
 /**
  * Created by User on 20.1.2016..
@@ -13,7 +12,7 @@ import hr.goodapp.zetapp.zetlines.ZetLinesFragment;
 public class MyPagerAdapter extends FragmentPagerAdapter {
 
     private static int NUM_ITEMS = 2;
-    String[] stringArray = {"Dnevne Linije", "Noćne Linije"};
+    String[] stringArray = {"DNEVNI AUTOBUS", "NOĆNI AUTOBUS"};
     public MyPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
     }
@@ -22,9 +21,9 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0: // ZetLinesFragment # 0 - This will show FirstFragment
-                return new ZetLinesFragment();
+                return new DayLinesFragment();
             case 1: // ZetLinesFragment # 0 - This will show FirstFragment different title
-                return new TimeTableFragment();
+                return new DayLinesFragment();
             default:
                 return null;
         }
