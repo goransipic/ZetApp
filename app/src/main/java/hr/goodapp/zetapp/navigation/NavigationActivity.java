@@ -3,7 +3,6 @@ package hr.goodapp.zetapp.navigation;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
@@ -18,11 +17,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import hr.goodapp.zetapp.R;
-import hr.goodapp.zetapp.timetable_new.TimeTableFragment;
+import hr.goodapp.zetapp.timetable_new.TimeTableActivity;
 import hr.goodapp.zetapp.zetlines.ZetLinesFragment;
 
 public class NavigationActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,TimeTableFragment.OnFragmentInteractionListener{
+        implements NavigationView.OnNavigationItemSelectedListener{
 
 
     private CoordinatorLayout mCoordinatorLayout;
@@ -111,10 +110,8 @@ public class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_timetable) {
-           getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.content_main, TimeTableFragment.newInstance(null,null),null)
-                                    .addToBackStack(null)
-                                    .commit();
+           Intent intent = new Intent(this,TimeTableActivity.class);
+           startActivity(intent);
         }
 
 
@@ -147,8 +144,5 @@ public class NavigationActivity extends AppCompatActivity
     }
 
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
 
-    }
 }

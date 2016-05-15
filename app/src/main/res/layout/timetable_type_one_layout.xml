@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:background="#4285F4"
+    android:gravity="center_vertical"
+    android:paddingLeft="?attr/listPreferredItemPaddingLeft"
+    android:paddingRight="?attr/listPreferredItemPaddingRight"
+    tools:showIn="@layout/fragment_timetable">
+
+    <!--<TextView
+        android:id="@+id/bus_station"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="65dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+        tools:text="Črnomerec" />-->
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/edit_text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Unesi broj linije (2,34,268)"
+        android:theme="@style/edit_textInputLayout">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </android.support.design.widget.TextInputLayout>
+
+
+</RelativeLayout>
