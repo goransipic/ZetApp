@@ -1,0 +1,5 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/background_toolbar_translucent" />
+    <item android:drawable="@drawable/zetstaticmap" />
+
+</layer-list>
