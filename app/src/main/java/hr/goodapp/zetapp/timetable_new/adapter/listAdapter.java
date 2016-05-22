@@ -6,16 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import hr.goodapp.zetapp.R;
+import hr.goodapp.zetapp.timetable_new.model.TimeTableModel;
 
 /**
  * Created by User on 14.5.2016..
  */
 public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    String[] mArrayList;
+    List<TimeTableModel> mArrayList;
 
-    public ListAdapter(String[] arrayList) {
+    public ListAdapter(List<TimeTableModel> arrayList) {
         this.mArrayList = arrayList;
     }
 
@@ -38,36 +41,46 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
         ViewHolder viewHolder = ((ViewHolder) holder);
-        viewHolder.getTextView().setText(mArrayList[position]);
+
+        viewHolder.getTextViewTime().setText(mArrayList.get(position).getTime());
+        viewHolder.getTextViewStart().setText(mArrayList.get(position).getStart());
+        viewHolder.getTextViewEnd().setText(mArrayList.get(position).getEnd());
 
     }
 
     @Override
     public int getItemCount() {
-        return mArrayList.length;
+        return mArrayList.size();
     }
-
-
-
 
 
     static public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textView;
+        private TextView textView_time;
+        private TextView textView_start;
+        private TextView textView_end;
 
         public ViewHolder(View v) {
             super(v);
-            this.textView = (TextView) v.findViewById(R.id.timetable_type_two);
+            this.textView_time = (TextView) v.findViewById(R.id.timetable_type_two_textview_time);
+            this.textView_start = (TextView) v.findViewById(R.id.timetable_type_two_textview_start);
+            this.textView_end = (TextView) v.findViewById(R.id.timetable_type_two_textview_end);
         }
 
 
-        public TextView getTextView() {
-            return textView;
+        public TextView getTextViewTime() {
+            return textView_time;
         }
 
-        public void setTextView(TextView textView) {
-            this.textView = textView;
+        public TextView getTextViewStart() {
+            return textView_start;
         }
+
+        public TextView getTextViewEnd() {
+            return textView_end;
+        }
+
+
     }
 
 
