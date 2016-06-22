@@ -48,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
+                android:theme="@style/AppTheme.AppBarOverlay"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 
@@ -64,32 +65,15 @@
             android:paddingRight="?attr/listPreferredItemPaddingRight"
             tools:showIn="@layout/fragment_timetable">
 
-            <View
-                android:id="@+id/focus_thief"
-                android:layout_width="1dp"
-                android:layout_height="1dp"
-                android:focusable="true"
-                android:focusableInTouchMode="true" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/edit_text_input_layout"
+           <android.support.v7.widget.SearchView
+                android:id="@+id/time_table_search_view"
+                android:theme="@style/ThemeOverlay.AppCompat.Light.Overlay"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Unesi broj linije (2,34,268)"
-                android:theme="@style/edit_textInputLayout">
+                android:layout_height="match_parent"
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/timetable_edit_text"
-                    android:inputType="number"
-                    android:singleLine="true"
-                    android:imeOptions="actionDone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                app:iconifiedByDefault="false">
 
-
-            </android.support.design.widget.TextInputLayout>
-
-
+            </android.support.v7.widget.SearchView>
         </RelativeLayout>
 
     </android.support.design.widget.AppBarLayout>

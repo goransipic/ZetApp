@@ -1,18 +1,25 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="searchView" parent="@style/Widget.AppCompat.SearchView.ActionBar">
+        <!-- Layout for query suggestion rows -->
+        <item name="suggestionRowLayout">@layout/search_view_layout</item>
+        <item name="android:inputType">number</item>
+        <item name="android:imeOptions">actionSearch</item>
     </style>
 
     <style name="edit_textInputLayout" parent="ThemeOverlay.AppCompat">
@@ -23,7 +30,9 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
+    <style name="ThemeOverlay.AppCompat.Light.Overlay">
+        <item name="searchViewStyle">@style/searchView</item>
+    </style>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.Launcher" parent="AppTheme.NoActionBar">

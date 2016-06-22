@@ -2,6 +2,7 @@ package hr.goodapp.zetapp.timetable_new.loader;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.os.OperationCanceledException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -67,6 +68,8 @@ public class TimeTableLoader extends AsyncTaskLoader<List<TimeTableModel>> {
             Document document = Jsoup.parse(result);
             elements = document.select("div.pageContent");
 
+
+
             elements = elements.select("table");
             //elements = elements.select("td");
 
@@ -101,9 +104,19 @@ public class TimeTableLoader extends AsyncTaskLoader<List<TimeTableModel>> {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+
+            if (isLoadInBackgroundCanceled()) {
+                throw new OperationCanceledException();
+            }
+
         }
 
         return timeTableModels;
+    }
+
+    @Override
+    public void cancelLoadInBackground() {
+
+
     }
 }
