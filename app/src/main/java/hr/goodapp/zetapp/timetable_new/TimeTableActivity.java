@@ -37,6 +37,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.target.Target;
 
 import hr.goodapp.zetapp.R;
+import hr.goodapp.zetapp.animator.LceAnimator;
 import hr.goodapp.zetapp.comon.adapter.DividerItemDecoration;
 import hr.goodapp.zetapp.timetable_new.adapter.ListAdapter;
 import hr.goodapp.zetapp.timetable_new.loader.TimeTableLoader;
@@ -170,11 +171,16 @@ public class TimeTableActivity extends AppCompatActivity implements LoaderManage
 
     @Override
     public Loader<TimeTableResultLoader> onCreateLoader(int id, Bundle args) {
+
+        LceAnimator.showLoading(findViewById(R.id.loadingView),findViewById(R.id.recyclerView_timetable),findViewById(R.id.errorView));
+
         return new TimeTableLoader(this, args.getInt(ID));
     }
 
     @Override
     public void onLoadFinished(Loader<TimeTableResultLoader> loader, TimeTableResultLoader data) {
+
+        LceAnimator.showContent(findViewById(R.id.loadingView),mRecyclerView,findViewById(R.id.errorView));
 
         mData = data;
 

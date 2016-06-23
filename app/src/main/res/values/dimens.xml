@@ -28,5 +28,7 @@
     <dimen name="list_item_parent_background_corner_radius">2dp</dimen>
     <dimen name="standard_material_padding">16dp</dimen>
     <dimen name="standard_text_size">16sp</dimen>
-
+    
+    <dimen name="lce_content_view_animation_translate_y">40dp</dimen>
+    
 </resources>
