@@ -56,6 +56,7 @@ public class TimeTableActivity extends AppCompatActivity implements LoaderManage
     private Target<GlideDrawable> mGlideDrawableTarget;
     private Animator mCurrentAnimator;
     private int mShortAnimationDuration;
+    private TimeTableResultLoader mData;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -175,6 +176,8 @@ public class TimeTableActivity extends AppCompatActivity implements LoaderManage
     @Override
     public void onLoadFinished(Loader<TimeTableResultLoader> loader, TimeTableResultLoader data) {
 
+        mData = data;
+
         mRecyclerView.setAdapter(new ListAdapter(data.getTimeTableModel()));
 
         mGlideDrawableTarget = Glide.with(this)
@@ -229,7 +232,12 @@ public class TimeTableActivity extends AppCompatActivity implements LoaderManage
         // Load the high-resolution "zoomed-in" image.
         final ImageView expandedImageView = (ImageView) findViewById(
                 R.id.expanded_image);
-        expandedImageView.setImageResource(imageResId);
+        //expandedImageView.setImageResource(imageResId);
+
+        Glide.with(this)
+                .load(mData.getImageUrl())
+                .crossFade()
+                .into(expandedImageView);
 
         // Calculate the starting and ending bounds for the zoomed-in image.
         // This step involves lots of math. Yay, math.
