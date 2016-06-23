@@ -3,6 +3,7 @@ package hr.goodapp.zetapp.timetable_new.loader;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.os.OperationCanceledException;
+import android.util.Log;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hr.goodapp.zetapp.timetable_new.model.TimeTableModel;
+import hr.goodapp.zetapp.timetable_new.model.TimeTableResultLoader;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -21,7 +23,7 @@ import okhttp3.Response;
 /**
  * Created by User on 21.5.2016..
  */
-public class TimeTableLoader extends AsyncTaskLoader<List<TimeTableModel>> {
+public class TimeTableLoader extends AsyncTaskLoader<TimeTableResultLoader> {
 
     public static final int TIME = 0;
     public static final int START = 1;
@@ -29,6 +31,7 @@ public class TimeTableLoader extends AsyncTaskLoader<List<TimeTableModel>> {
     public static final int ROW_SIZE = 4;
     public static final int FIRST_TABLE = 1;
     public static final int SECOND_TABLE = 2;
+    private static final String TAG = TimeTableLoader.class.getSimpleName();
     private OkHttpClient mOkHttpClient = new OkHttpClient();
 
     private Request mRequest;
@@ -51,8 +54,10 @@ public class TimeTableLoader extends AsyncTaskLoader<List<TimeTableModel>> {
     }
 
     @Override
-    public List<TimeTableModel> loadInBackground() {
+    public TimeTableResultLoader loadInBackground() {
 
+        final TimeTableResultLoader timeTableResultLoader;
+        String imageUrl = null;
         String result = null;
         Elements elements = null;
 
@@ -68,8 +73,12 @@ public class TimeTableLoader extends AsyncTaskLoader<List<TimeTableModel>> {
             Document document = Jsoup.parse(result);
             elements = document.select("div.pageContent");
 
+            // parse image
+            Elements imageElement = document.select("div.leftMenu");
 
+            imageUrl = imageElement.select("img").attr("src");
 
+            //
             elements = elements.select("table");
             //elements = elements.select("td");
 
@@ -111,7 +120,10 @@ public class TimeTableLoader extends AsyncTaskLoader<List<TimeTableModel>> {
 
         }
 
-        return timeTableModels;
+        timeTableResultLoader = new TimeTableResultLoader();
+        timeTableResultLoader.setTimeTableModel(timeTableModels);
+        timeTableResultLoader.setImageUrl(imageUrl);
+        return timeTableResultLoader;
     }
 
     @Override

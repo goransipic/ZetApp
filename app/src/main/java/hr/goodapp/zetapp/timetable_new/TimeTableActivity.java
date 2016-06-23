@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.LoaderManager;
@@ -20,23 +21,27 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ImageView;
 
-import java.util.List;
+import com.bumptech.glide.Glide;
 
 import hr.goodapp.zetapp.R;
 import hr.goodapp.zetapp.comon.adapter.DividerItemDecoration;
 import hr.goodapp.zetapp.timetable_new.adapter.ListAdapter;
 import hr.goodapp.zetapp.timetable_new.loader.TimeTableLoader;
-import hr.goodapp.zetapp.timetable_new.model.TimeTableModel;
+import hr.goodapp.zetapp.timetable_new.model.TimeTableResultLoader;
 import hr.goodapp.zetapp.timetable_new.provider.SuggestionProvider;
 
 
-public class TimeTableActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<TimeTableModel>>, NavigationView.OnNavigationItemSelectedListener {
+public class TimeTableActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<TimeTableResultLoader>, NavigationView.OnNavigationItemSelectedListener {
 
     public static final String ID = "Id";
     public static final int DEFAULT_NUMBER = 109;
     private TextInputEditText mTextInputEditText;
     private RecyclerView mRecyclerView;
+    private SearchView mSearchView;
+    private ImageView mZetMap;
+    private CollapsingToolbarLayout mCollapsingToolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -125,9 +130,20 @@ public class TimeTableActivity extends AppCompatActivity implements LoaderManage
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
 
+            mSearchView.setQuery(query, false);
+            mSearchView.clearFocus();
+
             SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
                     SuggestionProvider.AUTHORITY, SuggestionProvider.MODE);
             suggestions.saveRecentQuery(query, null);
+
+            Bundle bundle = new Bundle();
+
+            Integer integer = Integer.parseInt(query);
+
+            bundle.putInt(ID, integer);
+
+            getSupportLoaderManager().restartLoader(0, bundle, TimeTableActivity.this);
 
         }
     }
@@ -138,37 +154,46 @@ public class TimeTableActivity extends AppCompatActivity implements LoaderManage
     }
 
     @Override
-    public Loader<List<TimeTableModel>> onCreateLoader(int id, Bundle args) {
+    public Loader<TimeTableResultLoader> onCreateLoader(int id, Bundle args) {
         return new TimeTableLoader(this, args.getInt(ID));
     }
 
     @Override
-    public void onLoadFinished(Loader<List<TimeTableModel>> loader, List<TimeTableModel> data) {
+    public void onLoadFinished(Loader<TimeTableResultLoader> loader, TimeTableResultLoader data) {
 
-        mRecyclerView.setAdapter(new ListAdapter(data));
+        mRecyclerView.setAdapter(new ListAdapter(data.getTimeTableModel()));
+
+        Glide.with(this)
+            .load(data.getImageUrl())
+            .crossFade()
+            .into(mZetMap);
+
     }
 
     @Override
-    public void onLoaderReset(Loader<List<TimeTableModel>> loader) {
+    public void onLoaderReset(Loader<TimeTableResultLoader> loader) {
 
     }
 
     private void initViews() {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_timetable);
         //mTextInputEditText = (TextInputEditText) findViewById(R.id.timetable_edit_text);
+        mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
+        mZetMap = (ImageView) findViewById(R.id.map_image);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) findViewById(R.id.time_table_search_view);
+        mSearchView = (SearchView) findViewById(R.id.time_table_search_view);
 
         // Assumes current activity is the searchable activity
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         //searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
-        searchView.setInputType(InputType.TYPE_CLASS_NUMBER);
-        searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        mSearchView.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mSearchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
     }
 
     private void initToolbar() {
