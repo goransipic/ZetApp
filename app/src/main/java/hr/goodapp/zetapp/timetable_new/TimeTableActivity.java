@@ -51,7 +51,7 @@ public class TimeTableActivity extends AppCompatActivity implements LoaderManage
     public static final int DEFAULT_NUMBER = 109;
     private TextInputEditText mTextInputEditText;
     private RecyclerView mRecyclerView;
-    private SearchView mSearchView;
+    //private SearchView mSearchView;
     private ImageButton mZetMap;
     private CollapsingToolbarLayout mCollapsingToolbar;
     private Target<GlideDrawable> mGlideDrawableTarget;
@@ -146,13 +146,13 @@ public class TimeTableActivity extends AppCompatActivity implements LoaderManage
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
 
-            mSearchView.setQuery(query, false);
-            mSearchView.clearFocus();
+            //mSearchView.setQuery(query, false);
+            //mSearchView.clearFocus();
 
-            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+            /*SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
                     SuggestionProvider.AUTHORITY, SuggestionProvider.MODE);
             suggestions.saveRecentQuery(query, null);
-
+            */
             Bundle bundle = new Bundle();
 
             Integer integer = Integer.parseInt(query);
@@ -172,7 +172,7 @@ public class TimeTableActivity extends AppCompatActivity implements LoaderManage
     @Override
     public Loader<TimeTableResultLoader> onCreateLoader(int id, Bundle args) {
 
-        LceAnimator.showLoading(findViewById(R.id.loadingView),findViewById(R.id.recyclerView_timetable),findViewById(R.id.errorView));
+        //LceAnimator.showLoading(findViewById(R.id.loadingView),findViewById(R.id.recyclerView_timetable),findViewById(R.id.errorView));
 
         return new TimeTableLoader(this, args.getInt(ID));
     }
@@ -180,7 +180,7 @@ public class TimeTableActivity extends AppCompatActivity implements LoaderManage
     @Override
     public void onLoadFinished(Loader<TimeTableResultLoader> loader, TimeTableResultLoader data) {
 
-        LceAnimator.showContent(findViewById(R.id.loadingView),mRecyclerView,findViewById(R.id.errorView));
+        //LceAnimator.showContent(findViewById(R.id.loadingView),mRecyclerView,findViewById(R.id.errorView));
 
         mData = data;
 
@@ -216,15 +216,6 @@ public class TimeTableActivity extends AppCompatActivity implements LoaderManage
                 zoomImageFromThumb(mZetMap,R.drawable.zetstaticmap);
             }
         });
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        mSearchView = (SearchView) findViewById(R.id.time_table_search_view);
-
-        // Assumes current activity is the searchable activity
-        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        //searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
-        mSearchView.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mSearchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-        mSearchView.setSubmitButtonEnabled(true);
     }
 
     private void zoomImageFromThumb(final View thumbView, int imageResId) {
